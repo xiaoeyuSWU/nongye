@@ -404,7 +404,7 @@
             <button class="nav-button" id="new-chat">🆕 新会话</button>
             <button class="nav-button" id="show-history">📜 历史记录</button>
         </div>
-        <button class="nav-button" id="deep-thought-button">✨ 深度思考模式 R1</button>
+        <button class="nav-button" id="deep-thought-button">✨ 深度思考</button>
     </div>
 
     <div id="history-panel">
@@ -526,7 +526,7 @@
             isDeepThought = !isDeepThought;
             deepThoughtButton.textContent = isDeepThought 
                 ? '🚀 深度思考已激活' 
-                : '✨ 深度思考模式 R1';
+                : '✨ 深度思考';
         });
 
         showHistoryBtn.addEventListener('click', () => {
@@ -656,7 +656,7 @@
             }
 
             // 始终显示欢迎语
-            const welcomeMessage = "欢迎来到西南大学智耘慧眼团队开发的基于DeepSeek的农业智能问答系统。";
+            const welcomeMessage = "欢迎来到由西南大学“智耘慧眼”团队基于DeepSeek满血版大模型开发的，面向农业场景进行深度优化的农情智能问答系统。";
             chatHistory.push({ role: "assistant", content: welcomeMessage });
             appendMessage('bot', welcomeMessage, false); // 不使用 Markdown
         });
