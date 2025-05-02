@@ -183,18 +183,20 @@
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            padding: 1rem;
-            max-width: 800px;
             margin: 0 auto;
             width: 100%;
-            padding-top: 70px; /* 顶部导航栏高度 */
+            max-width: 800px;
+            padding-top: 70px;
             padding-bottom: 120px;
+            padding-left: 0;   /* ✅ 添加 */
+            padding-right: 0;  /* ✅ 添加 */
         }
+
 
         #chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem;
+            padding: 1rem 0;   /* 修改为上下1rem，左右0 */
             scroll-behavior: smooth;
             background: var(--card-bg);
             border-radius: 16px;
@@ -202,6 +204,7 @@
             margin-bottom: 1rem;
             padding-bottom: 60px;
         }
+
         
         .message {
             margin: 0.4rem 0;
