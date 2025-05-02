@@ -26,14 +26,17 @@
             position: relative;
             z-index: 0;
         }
-
+        html, body {
+            height: 100%;
+            overflow-x: hidden; /* 禁止横向滚动 */
+        }
         /* 新增：固定全屏背景图层 */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0;
             width: 100vw;
-            height: 100vh;
+            height: 100%;
             background-image: url('xiaomai.png');  /* 确保 xiaomai.png 与 HTML 文件同目录 */
             background-size: cover;                /* 铺满全屏 */
             background-position: center center;
