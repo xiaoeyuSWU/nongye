@@ -104,22 +104,23 @@
 
         /* “？”帮助按钮 —— 跟发送按钮同级但更小 */
         #help-button {
-            width: 2.5rem;
-            padding: 0; 
-            font-size: 1.25rem;
-            line-height: 1;
+            /* 去掉 padding:0 */
+            padding: 0.75rem;        /* 与 send-button 同级别的内边距 */
+            /* 改为最小宽高，可根据需要放大 */
+            min-width: 2.5rem;       
+            min-height: 2.5rem;      
+            font-size: 1.25rem;      
+            line-height: 1;          
+            flex-shrink: 0;          /* 禁止在 flex 容器中被压扁 */
+            /* 其余原有样式保持 */
             text-align: center;
             background: var(--card-bg);
             color: var(--primary-color);
             border: 1px solid #e2e8f0;
             border-radius: 12px;
-            margin: 0 0.5rem;
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
             transition: background 0.2s;
-        }
-        #help-button:hover {
-            background: #f1f5f9;
         }
 
         /* 弹窗蒙层 */
@@ -284,6 +285,8 @@
 
         #chat-input-container {
             display: flex;
+            align-items: center;   /* 新增 */
+
             gap: 0.75rem;
             padding: 1rem;
             background: var(--card-bg);
