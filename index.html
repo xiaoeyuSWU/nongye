@@ -207,40 +207,33 @@
 
         
         .message {
-            margin: 0.4rem 1rem;
+            clear: both;                      /* 每条消息独占一行 */
+            max-width: calc(100% - 4rem);     /* 保证左右各 2rem 空白 */
             padding: 0.8rem 1.2rem;
             border-radius: 1.25rem;
-            width: fit-content;
-            max-width: calc(100% - 4rem); /* 保证总宽度始终有左右各2rem的间距 */
-            min-width: 60px;
-            line-height: 1.5;
-            font-size: 0.95rem;
             word-break: break-word;
-            overflow-wrap: anywhere;
-            display: block;
-            animation: fadeIn 0.3s ease-in;
-            position: relative;
-        }
+            margin-block: 0.4rem;             /* 上下间距 0.4rem */
+            }
 
-        .message.user {
+            .message.user {
+            float: right;
+            margin-right: 2rem;               /* 右侧空隙 */
+            margin-left: 2rem;                /* 左侧空隙，防止消息太长时直接顶到左边 */
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border-bottom-right-radius: 4px;
-            margin-left: auto;
-            margin-right: 2rem;
-            max-width: calc(100% - 4rem); /* ✅ 添加，确保左边也保留空间 */
-        }
+            }
 
-        .message.bot {
+            .message.bot {
+            float: left;
+            margin-left: 2rem;                /* 左侧空隙 */
+            margin-right: 2rem;               /* 右侧空隙 */
             background: var(--card-bg);
             color: #334155;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
             border-bottom-left-radius: 4px;
-            margin-right: auto;
-            margin-left: 2rem;
-            max-width: calc(100% - 4rem); /* ✅ 添加，确保右边也保留空间 */
-        }
+            }
+
 
 
 
