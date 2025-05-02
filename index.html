@@ -211,7 +211,7 @@
             padding: 0.8rem 1.2rem;
             border-radius: 1.25rem;
             width: fit-content;
-            max-width: calc(100% - 4rem); /* 控制总宽度不贴边，两侧各留2rem */
+            max-width: calc(100% - 4rem); /* 保证总宽度始终有左右各2rem的间距 */
             min-width: 60px;
             line-height: 1.5;
             font-size: 0.95rem;
@@ -226,8 +226,9 @@
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border-bottom-right-radius: 4px;
-            margin-left: auto;         /* 让用户气泡靠右 */
-            margin-right: 2rem;        /* 留出右侧边距 */
+            margin-left: auto;
+            margin-right: 2rem;
+            max-width: calc(100% - 4rem); /* ✅ 添加，确保左边也保留空间 */
         }
 
         .message.bot {
@@ -236,9 +237,11 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
             border-bottom-left-radius: 4px;
-            margin-right: auto;        /* 让 AI 气泡靠左 */
-            margin-left: 2rem;         /* 留出左侧边距 */
+            margin-right: auto;
+            margin-left: 2rem;
+            max-width: calc(100% - 4rem); /* ✅ 添加，确保右边也保留空间 */
         }
+
 
 
         @media (max-width: 640px) {
