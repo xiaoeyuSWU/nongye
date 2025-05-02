@@ -207,11 +207,11 @@
 
         
         .message {
-            margin: 0.4rem 1rem; /* 上下 0.4rem，左右 1rem */
+            margin: 0.4rem 1rem;
             padding: 0.8rem 1.2rem;
             border-radius: 1.25rem;
             width: fit-content;
-            max-width: min(78%, 600px);
+            max-width: calc(100% - 4rem); /* 控制总宽度不贴边，两侧各留2rem */
             min-width: 60px;
             line-height: 1.5;
             font-size: 0.95rem;
@@ -222,15 +222,12 @@
             position: relative;
         }
 
-
-
-
         .message.user {
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
             border-bottom-right-radius: 4px;
-            margin-left: 60px;  /* ✅ 让用户的消息离左边远一些 */
-
+            margin-left: auto;         /* 让用户气泡靠右 */
+            margin-right: 2rem;        /* 留出右侧边距 */
         }
 
         .message.bot {
@@ -239,9 +236,10 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
             border-bottom-left-radius: 4px;
-            margin-right: 60px; /* ✅ 让 AI 的消息离右边远一些 */
-
+            margin-right: auto;        /* 让 AI 气泡靠左 */
+            margin-left: 2rem;         /* 留出左侧边距 */
         }
+
 
         @media (max-width: 640px) {
             .message {
