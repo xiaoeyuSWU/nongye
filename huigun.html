@@ -23,6 +23,28 @@
             height: 100vh;
             background: var(--bg-color);
             color: #1e293b;
+            position: relative;
+            z-index: 0;
+        }
+        html, body {
+            height: 100%;
+            overflow-x: hidden; /* 禁止横向滚动 */
+        }
+        /* 新增：固定全屏背景图层 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw;
+            height: 100%;
+            background-image: url('xiaomai.png');  /* 确保 xiaomai.png 与 HTML 文件同目录 */
+            background-size: cover;                /* 铺满全屏 */
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;          /* 固定在视口 */
+            opacity: 0.8;                           /* 透明度 0.8 */
+            pointer-events: none;                  /* 不阻塞点击 */
+            z-index: -1;                            /* 置于所有内容之下 */
         }
 
         .heart-animation {
@@ -161,18 +183,20 @@
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            padding: 1rem;
-            max-width: 800px;
             margin: 0 auto;
             width: 100%;
-            padding-top: 70px; /* 顶部导航栏高度 */
+            max-width: 800px;
+            padding-top: 70px;
             padding-bottom: 120px;
+            padding-left: 0;   /* ✅ 添加 */
+            padding-right: 0;  /* ✅ 添加 */
         }
+
 
         #chat-messages {
             flex: 1;
             overflow-y: auto;
-            padding: 1rem;
+            padding: 1rem 0;   /* 修改为上下1rem，左右0 */
             scroll-behavior: smooth;
             background: var(--card-bg);
             border-radius: 16px;
@@ -180,40 +204,38 @@
             margin-bottom: 1rem;
             padding-bottom: 60px;
         }
+
         
         .message {
-            margin: 0.4rem 0;
+            clear: both;                      /* 每条消息独占一行 */
+            max-width: calc(100% - 4rem);     /* 保证左右各 2rem 空白 */
             padding: 0.8rem 1.2rem;
             border-radius: 1.25rem;
-            width: fit-content;
-            max-width: min(78%, 600px);
-            min-width: 60px;
-            line-height: 1.5;
-            font-size: 0.95rem;
             word-break: break-word;
-            overflow-wrap: anywhere;
-            display: block; /* 关键修改 */
-            animation: fadeIn 0.3s ease-in;
-            position: relative;
-        }
+            margin-block: 0.4rem;             /* 上下间距 0.4rem */
+            }
 
-
-
-        .message.user {
+            .message.user {
+            float: right;
+            margin-right: 2rem;               /* 右侧空隙 */
+            margin-left: 2rem;                /* 左侧空隙，防止消息太长时直接顶到左边 */
             background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            margin-left: auto;
             border-bottom-right-radius: 4px;
-        }
+            }
 
-        .message.bot {
+            .message.bot {
+            float: left;
+            margin-left: 2rem;                /* 左侧空隙 */
+            margin-right: 2rem;               /* 右侧空隙 */
             background: var(--card-bg);
             color: #334155;
-            margin-right: auto;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             border: 1px solid #e2e8f0;
             border-bottom-left-radius: 4px;
-        }
+            }
+
+
+
 
         @media (max-width: 640px) {
             .message {
@@ -233,6 +255,9 @@
         }
 
         .message.loading {
+            float: left;               /* 跟 AI 消息一样靠左 */
+            margin-left: 2rem;         /* 左侧空隙 */
+            margin-right: 2rem;        /* 右侧空隙 */
             background: #f8fafc;
             color: #64748b;
             width: fit-content;
@@ -240,6 +265,7 @@
             align-items: center;
             gap: 0.5rem;
         }
+
 
         .loading-dots {
             display: inline-flex;
@@ -358,6 +384,16 @@
             0%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-6px); }
         }
+
+        #chat-container,
+        #chat-messages,
+        #chat-input-container,
+        #top-nav {
+            background-color: transparent !important;
+            backdrop-filter: blur(0.01px);
+            -webkit-backdrop-filter: blur(0.01px); /* 兼容 Safari */
+        }
+
     </style>
 </head>
 <body>
@@ -382,7 +418,7 @@
     </div>
     
     <div id="chat-input-container">
-        <input type="text" id="chat-input" placeholder="键入消息...（点击问号查看提示）">
+        <input type="text" id="chat-input" placeholder="键入消息(点击问号查看提示)">
         <!-- 新增的帮助按钮 -->
         <button class="nav-button" id="help-button" title="帮助">?</button>
         <button id="send-button">发送</button>
@@ -393,8 +429,8 @@
         <div class="modal-content">
             <p>
                 我由西南大学“智耘慧眼”团队基于DeepSeek满血版大模型开发，面向农业场景进行深度优化。🤖<br>
-                帮助农民更好地管理作物、识别问题和获取种植建议，是一个真正“接地气”的AI助手。😊<br>
-                比如，你可以试着问我，“如何给玉米🌽增产？”
+                我可以帮助农民更好地管理作物、识别问题和获取种植建议，是一个真正“接地气”的AI助手。😊<br>
+                比如，你可以试着问我，“我家水稻🌾最近有钻心虫，该打什么药？”
             </p>
               
               
@@ -659,6 +695,19 @@
             });
 
         });
+
+
+
+        document.addEventListener('gesturestart', function (e) {
+            e.preventDefault();
+        });
+        document.addEventListener('gesturechange', function (e) {
+            e.preventDefault();
+        });
+        document.addEventListener('gestureend', function (e) {
+            e.preventDefault();
+        });
+
 
 
     </script>
