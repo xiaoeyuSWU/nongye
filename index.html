@@ -80,6 +80,66 @@
             white-space: nowrap;
         }
 
+        /* “？”帮助按钮 —— 跟发送按钮同级但更小 */
+        #help-button {
+            width: 2.5rem;
+            padding: 0; 
+            font-size: 1.25rem;
+            line-height: 1;
+            text-align: center;
+            background: var(--card-bg);
+            color: var(--primary-color);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin: 0 0.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            transition: background 0.2s;
+        }
+        #help-button:hover {
+            background: #f1f5f9;
+        }
+
+        /* 弹窗蒙层 */
+        #help-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.5);
+            display: none;           /* 默认隐藏 */
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        #help-modal .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 90%;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            text-align: center;
+            line-height: 1.6;
+            text-align: left;
+
+        }
+        #help-modal .modal-content p {
+            margin-bottom: 1.5rem;
+            color: #334155;
+            white-space: normal;
+            word-wrap: break-word;
+        }
+        #help-modal .modal-content button {
+            display: block;         /* 让按钮成为块级元素 */
+            margin: 1rem auto 0;    /* 上方留 1rem，下方 0，左右自动居中 */
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+
         #new-chat {
             background: linear-gradient(135deg, #10b981, #059669);
             color: white;
@@ -322,9 +382,27 @@
     </div>
     
     <div id="chat-input-container">
-        <input type="text" id="chat-input" placeholder="键入消息...">
+        <input type="text" id="chat-input" placeholder="键入消息...（点击问号查看提示）">
+        <!-- 新增的帮助按钮 -->
+        <button class="nav-button" id="help-button" title="帮助">?</button>
         <button id="send-button">发送</button>
     </div>
+
+    <!-- 帮助弹窗 -->
+    <div id="help-modal">
+        <div class="modal-content">
+            <p>
+                我由西南大学“智耘慧眼”团队基于DeepSeek满血版大模型开发，面向农业场景进行深度优化。🤖<br>
+                帮助农民更好地管理作物、识别问题和获取种植建议，是一个真正“接地气”的AI助手。😊<br>
+                比如，你可以试着问我，“如何给玉米🌽增产？”
+            </p>
+              
+              
+        <button id="modal-close">我知道了👌</button>
+        </div>
+    </div>
+  
+    
 
     <script>
         const StorageManager = {
@@ -567,6 +645,19 @@
             
             // 自动清理
             setTimeout(() => heart.remove(), 4000);
+
+            // 打开弹窗
+            document.getElementById('help-button')
+            .addEventListener('click', () => {
+                document.getElementById('help-modal').style.display = 'flex';
+            });
+
+            // 关闭弹窗
+            document.getElementById('modal-close')
+            .addEventListener('click', () => {
+                document.getElementById('help-modal').style.display = 'none';
+            });
+
         });
 
 
