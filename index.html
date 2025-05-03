@@ -286,9 +286,10 @@
 
         #chat-input-container {
             display: flex;
-            align-items: center;
+            align-items: center;   /* 新增 */
+
             gap: 0.75rem;
-            padding: 0.75rem;  /* 减小内边距 */
+            padding: 1rem;
             background: var(--card-bg);
             border-radius: 16px 16px 0 0;
             box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
@@ -299,21 +300,16 @@
             max-width: 800px;
             margin: 0 auto;
             z-index: 100;
-            /* 新增以下属性 */
-            flex-wrap: wrap;  /* 允许元素换行 */
-            bottom: env(safe-area-inset-bottom); /* 兼容全面屏手机 */
-            backdrop-filter: blur(8px); /* 背景模糊效果 */
+            
         }
 
         #chat-input {
-            flex: 1 1 60%;  /* 基础宽度60%且可伸缩 */
+            flex: 1;
             padding: 0.875rem 1.25rem;
             border: 1px solid #e2e8f0;
             border-radius: 12px;
             font-size: 0.9375rem;
             transition: all 0.2s ease;
-            min-width: 200px;  /* 设置最小宽度 */
-
         }
 
         #chat-input:focus {
@@ -332,8 +328,6 @@
             font-weight: 500;
             transition: transform 0.1s ease, opacity 0.2s ease;
             min-width: 80px;
-            flex-shrink: 0;  /* 禁止缩小 */
-            order: -1;  /* 默认排在最前面 */
         }
 
         /* 历史记录面板样式 */
@@ -397,8 +391,6 @@
             0%, 80%, 100% { transform: translateY(0); }
             40% { transform: translateY(-6px); }
         }
-
-
 
         #chat-container,
         #chat-messages,
